@@ -11,7 +11,7 @@
 	UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(definitelyNotARickRoll:)];
 
 	// Pikachu image
-	self.pikaView = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerView.bounds.size.height - 25, self.headerView.bounds.size.width - 120, 31, 31)];
+	self.pikaView = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerView.bounds.size.height - 20, self.headerView.bounds.size.width - 120, 35, 35)];
 	self.pikaView.image = [UIImage imageWithContentsOfFile:[[self resourceBundle] pathForResource:@"mario-mushroom" ofType:@"png"]];
 	self.pikaView.userInteractionEnabled = YES;
 
@@ -28,7 +28,7 @@
 
 - (void)layoutHeader {
 	[super layoutHeader];
-	self.pikaView.frame = CGRectMake(300, self.headerView.bounds.size.height - 25, 48, 31);
+	self.pikaView.frame = CGRectMake(310, self.headerView.bounds.size.height - 25, 35, 35);
 }
 
 // "Hack" to allow notifications in the foreground
