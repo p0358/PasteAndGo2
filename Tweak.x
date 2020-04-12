@@ -57,7 +57,7 @@
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDGO" value:@"" table:nil];
 				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"Go to: %@", [[[pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""] stringByReplacingOccurrencesOfString:@"http://" withString:@""] mutableCopy]]; //link without http:// and https://
 
-				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
+				pasteAndGoItem.type = @"com.amodrono.pasteandgo2.item";
 
 				return [orig arrayByAddingObject:pasteAndGoItem];
 
@@ -67,7 +67,7 @@
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDSEARCH" value:@"" table:nil];
 				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"Search \"%@\"", pbStr];
 
-				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
+				pasteAndGoItem.type = @"com.amodrono.pasteandgo2.item";
 
 				return [orig arrayByAddingObject:pasteAndGoItem];
 
@@ -80,7 +80,7 @@
 
 +(void) activateShortcut:(SBSApplicationShortcutItem*)item withBundleIdentifier:(NSString*)bundleID forIconView:(id)iconView{
 	
-	if ([[item type] isEqualToString:@"com.twickd.amodrono.pasteandgo2.item"]){
+	if ([[item type] isEqualToString:@"com.amodrono.pasteandgo2.item"]){
 		
 		UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard]; 
 		NSString *pbStr = [pasteBoard string];
@@ -184,7 +184,7 @@
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDGO" value:@"" table:nil];
 				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"Go to: %@", [[[pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""] stringByReplacingOccurrencesOfString:@"http://" withString:@""] mutableCopy]]; //link without http:// and https://
 
-				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
+				pasteAndGoItem.type = @"com.amodrono.pasteandgo2.item";
 
 				if (!orig){
 					return @[pasteAndGoItem];
@@ -198,7 +198,7 @@
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDSEARCH" value:@"" table:nil];
 				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"Search \"%@\"", pbStr];
 
-				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
+				pasteAndGoItem.type = @"com.amodrono.pasteandgo2.item";
 
 				if (!orig) {
 					return @[pasteAndGoItem];
@@ -233,7 +233,7 @@
 
 -(void) appIconForceTouchShortcutViewController:(id)arg1 activateApplicationShortcutItem:(SBSApplicationShortcutItem*)item {
 	
-	if ([[item type] isEqualToString:@"com.twickd.amodrono.pasteandgo2.item"]){
+	if ([[item type] isEqualToString:@"com.amodrono.pasteandgo2.item"]){
 		
 		UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard]; 
 		NSString *pbStr = [pasteBoard string];

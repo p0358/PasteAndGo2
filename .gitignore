@@ -68,4 +68,6 @@ fastlane/test_output
 iOSInjectionProject/
 .theos/
 .DS_Store
+packages/
+.DS_Store
 

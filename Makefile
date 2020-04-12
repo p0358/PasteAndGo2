@@ -13,6 +13,9 @@ PasteAndGo2_PRIVATE_FRAMEWORKS = BackBoardServices
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
+SUBPROJECTS += Prefs
+include $(THEOS_MAKE_PATH)/aggregate.mk
+
 internal-stage::
 	mkdir -p "$(THEOS_STAGING_DIR)/Library/Application Support/PasteAndGo2.bundle"
 	cp -R Resources/* "$(THEOS_STAGING_DIR)/Library/Application Support/PasteAndGo2.bundle/"
