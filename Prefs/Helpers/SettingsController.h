@@ -1,7 +1,6 @@
 // SettingsController.h
 
 #import <Preferences/PSListController.h>
-#import <UserNotifications/UserNotifications.h>
 #import "HeaderView.h"
 
 @interface SPSettingsController : PSListController <UIScrollViewDelegate, UNUserNotificationCenterDelegate>

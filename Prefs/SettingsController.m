@@ -7,9 +7,15 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+	//mmm I wonder what does this do???
+	UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(definitelyNotARickRoll:)];
+
 	// Pikachu image
-	self.pikaView = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerView.bounds.size.height - 25, self.headerView.bounds.size.width - 120, 48, 31)];
-	self.pikaView.image = [UIImage imageWithContentsOfFile:[[self resourceBundle] pathForResource:@"pikachu" ofType:@"png"]];
+	self.pikaView = [[UIImageView alloc] initWithFrame:CGRectMake(self.headerView.bounds.size.height - 25, self.headerView.bounds.size.width - 120, 31, 31)];
+	self.pikaView.image = [UIImage imageWithContentsOfFile:[[self resourceBundle] pathForResource:@"mario-mushroom" ofType:@"png"]];
+	self.pikaView.userInteractionEnabled = YES;
+
+	[self.pikaView addGestureRecognizer:tap];
 	[self.headerView addSubview:self.pikaView];
 
 	// Setup notifications
@@ -30,23 +36,12 @@
 	completionHandler(UNNotificationPresentationOptionAlert);
 }
 
-// Send a notification without any libraries!
-// Unfortunately this has a 1 second delay idk how to get rid of it
-- (void)testNotification {
-	UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-	content.title = @"Pokebox";
-	content.body = @"Testing your notifications!";
-	content.badge = 0;
-
-	UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
-
-	UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.pasteandgo2.notify" content:content trigger:trigger];
-
-	[UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:requesta withCompletionHandler:nil];
-}
-
 - (void)donate {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://paypal.me/amodrono"] options:@{} completionHandler:nil];
+}
+
+- (void)definitelyNotARickRoll:(UITapGestureRecognizer *)recognizer {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.youtube.com/watch?v=dQw4w9WgXcQ"] options:@{} completionHandler:nil];
 }
 
 - (NSBundle *)resourceBundle {

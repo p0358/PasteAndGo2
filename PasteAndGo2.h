@@ -74,3 +74,5 @@
 - (NSString*)applicationBundleIdentifier;
 - (bool)isBrowser:(NSString *)bundleID;
 @end
+
+bool isNotDebugMode;

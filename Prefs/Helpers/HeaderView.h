@@ -1,4 +1,5 @@
 // HeaderView.h
+#import <UserNotifications/UserNotifications.h>
 
 @interface UIView (Private)
 - (UIViewController *)_viewControllerForAncestor;
@@ -16,5 +17,7 @@
 
 - (id)initWithSettings:(NSDictionary *)settings;
 - (CGFloat)contentHeightForWidth:(CGFloat)width;
+- (void)enableDebugMode:(UITapGestureRecognizer *)recognizer;
+
 
 @end

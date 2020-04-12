@@ -2,6 +2,7 @@
 
 #import "HeaderView.h"
 #import "../Settings.h"
+#import "../../PasteAndGo2.h"
 
 @import CoreText;
 
@@ -11,6 +12,7 @@
 	self = [super init];
 
 	if (self) {
+		UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enableDebugMode:)]; //allow enabling debug mode
 		self.settings = settings;
 
 		self.backgroundColor = settings[@"headerColor"] ?: settings[@"tintColor"];
@@ -34,6 +36,9 @@
 		self.versionLabel.text = settings[@"version"];
 		self.versionLabel.font = [UIFont boldSystemFontOfSize:[settings[@"versionLabelFontSize"] floatValue] ?: 25];
 		self.versionLabel.textColor = [UIColor grayColor];
+		self.versionLabel.userInteractionEnabled = YES;
+		[self.versionLabel addGestureRecognizer:tap];
+
 		[self.contentView addSubview:self.versionLabel];
 
 		if (@available(iOS 13.0, *)) {
@@ -81,6 +86,42 @@
 
 - (CGFloat)contentHeightForWidth:(CGFloat)width {
     return 200;
+}
+
+// Shamelessly stolen from Skitty's Pokebox. Please support him as well! :)
+- (void)enableDebugMode:(UITapGestureRecognizer *)recognizer {
+
+	if (isNotDebugMode) {
+
+		UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+		content.title = @"PasteAndGo 2";
+		content.body = @"Debug mode disabled!";
+		content.badge = 0;
+
+		UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+
+		UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.pasteandgo2.notify" content:content trigger:trigger];
+
+		[UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:requesta withCompletionHandler:nil];
+		isNotDebugMode = NO;
+	
+	} else {
+
+		UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+		content.title = @"PasteAndGo 2";
+		content.body = @"Enabled debug mode! If you enabled this by accident, you can disable it by tapping the version label again.";
+		content.badge = 0;
+
+		UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
+
+		UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.pasteandgo2.notify" content:content trigger:trigger];
+
+		[UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:requesta withCompletionHandler:nil];
+
+		isNotDebugMode = YES;
+	
+	}
+	
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
