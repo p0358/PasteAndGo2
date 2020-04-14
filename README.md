@@ -1,13 +1,19 @@
-# PasteAndGo 2 | Paste & Search actions for the force touch menu
-PasteAndGo 2 is a tweak for jailbroken iOS devices running iOS 11.3.1 to 13.3, that adds the ability to directly open a link or search a word
-from the force touch menu of several browsers.
+# Ibiza: bring your clipboard and force-touch menu to the next level
+Ibiza is a powerful multitasking tweak for jailbroken iOS devices running iOS 11.3.1 to 13.3, that adds several options to the menu that appears when you force-touch many apps.
+It includes many features, such as:
 
-It is based on [u/apieceoflint's](https://reddit.com/u/apieceoflint)'s' PasteAndGo tweak, and aims to add some cool features to the it, such as:
-- Support for more web browsers, such as Firefox, Brave, Google Chrome, and more!
+- Directly search the word or go to the link copied on your clipboard with several web browsers.
 
-- Support for more languages such as Spanish, Dutch, German, French, Italian, Portuguese, Russian, Dutch, and more that I will be adding!
+- Compose a post with the contents copied on your clipboard in Reddit and Apollo.
 
-- If the item copied is not a URL but just a normal word, search it with the search engine of preference.
+- Compose a tweet or search for a user with the contents in your clipboard.
+
+- Add the sources on your clipboard to Sileo, Cydia, and Zebra.
+
+- Compose emails with the contents of your clipboard.
+
+- Search for an app on the App Store with the contents of your clipboard.
+
 
 ### List of compatible browsers
  - Safari
@@ -17,21 +23,20 @@ It is based on [u/apieceoflint's](https://reddit.com/u/apieceoflint)'s' PasteAnd
  - Brave
 
 ## Installation
-Installing PasteAndGo 2 is a pretty straight-forward process. You can install it from:
+Installing Ibiza is a pretty straight-forward process. You can install it from:
 
-###### Twickd
-1. Add the [Twickd](https://repo.twickd.com) repository to your APT GUI.
-2. Search for PasteAndGo 2.
+###### Dynastic
+2. Search for Ibiza on the Dynastic repository.
 3. Click install
 4. Enjoy!
 
 ###### Pre-compiled binaries
-If you prefer to do things manually, you can install PasteAndGo 2 manually using `dpkg`.
+If you prefer to do things manually, you can install Ibiza using `dpkg`.
 
-1. Download the latest release from [GitHub releases](https://github.com/iAlex11/PasteAndGo2/releases).
+1. Download the latest release from [GitHub releases](https://github.com/iAlex11/Ibiza/releases).
 2. Either using filza or ssh, install the .deb package.
 	* If using Filza, you can just click on the file and select `install`.
-	* If using ssh, run `dpkg -i [path-to-deb-file]`
+	* If using ssh, using Cyberduck or SFTP, send the package to your device and run `dpkg -i [path-to-deb-file]`.
 3. Enjoy!
 
 ## Contributing

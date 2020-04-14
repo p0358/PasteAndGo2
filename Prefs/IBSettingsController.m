@@ -1,8 +1,8 @@
-// SettingsController.m
+// IBSettingsController.m
 
-#import "SettingsController.h"
+#import "IBSettingsController.h"
 
-@implementation PBSettingsController
+@implementation IBSettingsController
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -45,7 +45,7 @@
 }
 
 - (NSBundle *)resourceBundle {
-	return [NSBundle bundleWithPath:@"/Library/PreferenceBundles/PAGPrefs.bundle"];
+	return [NSBundle bundleWithPath:@"/Library/PreferenceBundles/IbizaPrefs.bundle"];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

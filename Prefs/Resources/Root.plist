@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>PasteAndGo 2</string>
+	<string>Ibiza</string>
 	<key>author</key>
 	<string>amodrono</string>
 	<key>version</key>
-	<string>v1.1</string>
+	<string>v1.0</string>
 	<key>headerColor</key>
 	<string>#373737</string> <!-- 8bac0f -->
 	<key>darkHeaderColor</key>
@@ -30,9 +30,9 @@
 			<key>default</key>
 			<true/>
 			<key>defaults</key>
-			<string>com.amodrono.tweak.pasteandgo2</string>
+			<string>com.amodrono.tweak.ibiza</string>
 			<key>PostNotification</key>
-			<string>com.amodrono.tweak.pasteandgo2.prefschanged</string>
+			<string>com.amodrono.tweak.ibiza.prefschanged</string>
 			<key>key</key>
 			<string>enabled</string>
 			<key>label</key>
@@ -46,11 +46,11 @@
 			<key>default</key>
 			<integer>0</integer>
 			<key>defaults</key>
-			<string>com.amodrono.tweak.pasteandgo2</string>
+			<string>com.amodrono.tweak.ibiza</string>
 			<key>PostNotification</key>
-			<string>com.amodrono.tweak.pasteandgo2.prefschanged</string>
+			<string>com.amodrono.tweak.ibiza.prefschanged</string>
 			<key>key</key>
-			<string>location</string>
+			<string>language</string>
 			<key>label</key>
 			<string>Language</string>
 			<key>validTitles</key>
@@ -94,11 +94,11 @@
 			<key>default</key>
 			<integer>1</integer>
 			<key>defaults</key>
-			<string>com.amodrono.tweak.pasteandgo2</string>
+			<string>com.amodrono.tweak.ibiza</string>
 			<key>PostNotification</key>
-			<string>com.amodrono.tweak.pasteandgo2.prefschanged</string>
+			<string>com.amodrono.tweak.ibiza.prefschanged</string>
 			<key>key</key>
-			<string>font</string>
+			<string>searchEngine</string>
 			<key>label</key>
 			<string>Search Engine</string>
 			<key>validTitles</key>

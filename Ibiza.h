@@ -18,6 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#import <UserNotifications/UserNotifications.h>
+
+#define kIdentifier @"com.amodrono.tweak.ibiza"
+#define kSettingsChangedNotification (CFStringRef)@"com.amodrono.tweak.ibiza.prefschanged"
+#define kSettingsPath @"/var/mobile/Library/Preferences/com.amodrono.tweak.ibiza.plist"
+
 @interface RBSProcessIdentity : NSObject
 @property(readonly, copy, nonatomic) NSString *executablePath;
 @property(readonly, copy, nonatomic) NSString *embeddedApplicationIdentifier;

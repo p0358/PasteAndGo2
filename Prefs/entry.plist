@@ -5,17 +5,17 @@
 	<key>entry</key>
 	<dict>
 		<key>bundle</key>
-		<string>PAGPrefs</string>
+		<string>IbizaPrefs</string>
 		<key>cell</key>
 		<string>PSLinkCell</string>
 		<key>detail</key>
-		<string>SettingsController</string>
+		<string>IBSettingsController</string>
 		<key>icon</key>
 		<string>icon.png</string>
 		<key>isController</key>
 		<true/>
 		<key>label</key>
-		<string>PasteAndGo 2</string>
+		<string>Ibiza</string>
 	</dict>
 </dict>
 </plist>

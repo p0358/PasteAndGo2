@@ -1,11 +1,11 @@
 // SettingsController.m
 
-#import "SettingsController.h"
+#import "AMSettingsController.h"
 #import "../Settings.h"
 #import "../UIColor+Hex.h"
 #import <Preferences/PSSpecifier.h>
 
-@implementation SPSettingsController
+@implementation AMSettingsController
 
 - (void)loadView {
 	[super loadView];
@@ -38,6 +38,11 @@
 	[titleView addSubview:self.iconView];
 
     self.navigationItem.titleView = titleView;
+    self.respringButton = [[UIBarButtonItem alloc] initWithTitle:@"Respring" 
+                                    style:UIBarButtonItemStylePlain
+                                    target:self 
+                                    action:@selector(respring)];
+    self.navigationItem.rightBarButtonItem = self.respringButton;
 
 	// Create header view
     self.headerView = [[HeaderView alloc] initWithSettings:[self.settings copy]];
@@ -229,6 +234,28 @@
 	}
 
 	return _specifiers;
+}
+
+-(void)respring {
+	UIAlertController *respring = [UIAlertController alertControllerWithTitle:@"Ibiza"
+													 message:@"Do you really want to respring?"
+													 preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+			[self respringUtil];
+	}];
+
+	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+	[respring addAction:confirmAction];
+	[respring addAction:cancelAction];
+	[self presentViewController:respring animated:YES completion:nil];
+
+}
+
+-(void)respringUtil {
+	NSTask *t = [[NSTask alloc] init];
+    [t setLaunchPath:@"/usr/bin/killall"];
+    [t setArguments:[NSArray arrayWithObjects:@"backboardd", nil]];
+    [t launch];
 }
 
 @end

@@ -1,5 +1,5 @@
-Package: com.amodrono.tweak.pasteandgo2
-Name: PasteAndGo2
+Package: com.amodrono.tweak.ibiza
+Name: Ibiza
 Depends: mobilesubstrate
 Version: 1.0.0
 Architecture: iphoneos-arm

@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>PAGPrefs</string>
+	<string>IbizaPrefs</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.amodrono.tweak.pasteandgo2</string>
+	<string>com.amodrono.tweak.ibiza</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -19,6 +19,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>NSPrincipalClass</key>
-	<string>PBSettingsController</string>
+	<string>IBSettingsController</string>
 </dict>
 </plist>

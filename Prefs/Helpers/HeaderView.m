@@ -2,7 +2,7 @@
 
 #import "HeaderView.h"
 #import "../Settings.h"
-#import "../../PasteAndGo2.h"
+#import "../../Ibiza.h"
 
 @import CoreText;
 
@@ -32,7 +32,7 @@
 		self.titleLabel.textColor = [UIColor colorWithRed: 0.769 green: 0.769 blue: 0.769 alpha: 1.0];
 		[self.contentView addSubview:self.titleLabel];
 
-		self.versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(250, 43, self.bounds.size.width, 50)];
+		self.versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 43, self.bounds.size.width, 50)];
 		self.versionLabel.text = settings[@"version"];
 		self.versionLabel.font = [UIFont boldSystemFontOfSize:[settings[@"versionLabelFontSize"] floatValue] ?: 25];
 		self.versionLabel.textColor = [UIColor grayColor];
@@ -94,13 +94,13 @@
 	if (isNotDebugMode) {
 
 		UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-		content.title = @"PasteAndGo 2";
+		content.title = @"Ibiza";
 		content.body = @"Debug mode disabled!";
 		content.badge = 0;
 
 		UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
 
-		UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.pasteandgo2.notify" content:content trigger:trigger];
+		UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.ibiza.notify" content:content trigger:trigger];
 
 		[UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:requesta withCompletionHandler:nil];
 		isNotDebugMode = NO;
@@ -108,13 +108,13 @@
 	} else {
 
 		UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-		content.title = @"PasteAndGo 2";
-		content.body = @"Enabled debug mode! If you enabled this by accident, you can disable it by tapping the version label again.";
+		content.title = @"Ibiza";
+		content.body = @"Enabled debug mode!\nIf you enabled this by accident, you can disable it by tapping the version label again.";
 		content.badge = 0;
 
 		UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:1 repeats:NO];
 
-		UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.pasteandgo2.notify" content:content trigger:trigger];
+		UNNotificationRequest *requesta = [UNNotificationRequest requestWithIdentifier:@"com.amodrono.tweak.ibiza.notify" content:content trigger:trigger];
 
 		[UNUserNotificationCenter.currentNotificationCenter addNotificationRequest:requesta withCompletionHandler:nil];
 
