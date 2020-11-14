@@ -12,11 +12,22 @@ bool isBrowser(NSString *bundleID) {
 		|| [bundleID isEqualToString:@"org.mozilla.ios.Focus"]
 		|| [bundleID isEqualToString:@"com.google.chrome.ios"]
 		|| [bundleID isEqualToString:@"com.brave.ios.browser"]
-		|| [bundleID isEqualToString:@"com.microsoft.msedge"]) {
-			return true;
-		}
+		|| [bundleID isEqualToString:@"com.microsoft.msedge"]
+		|| [bundleID isEqualToString:@"com.alohabrowser.alohabrowser"]
+		|| [bundleID isEqualToString:@"com.opera.OperaTouch"]
+		|| [bundleID isEqualToString:@"com.cloudmosa.puffin"]
+		|| [bundleID isEqualToString:@"com.uc.iphone.browser.international"]
+		|| [bundleID isEqualToString:@"ru.yandex.mobile.search"]
+		|| [bundleID isEqualToString:@"RAPS.appstore.com.dolphin.browser.iphone.ios12"]
+	) {
+		return true;
+	}
 
 	return false;
+}
+
+bool isAnotherHandledApp(NSString *bundleID) {
+	return [bundleID isEqualToString:@"com.google.ios.youtube"];
 }
 
 bool activateShortcut(NSString *itemType, NSString* bundleID) {
@@ -25,6 +36,8 @@ bool activateShortcut(NSString *itemType, NSString* bundleID) {
 	if (!bundleID)
 		return false;
 
+	NSCharacterSet *customCharacterset = [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]\\<>^`{|} "] invertedSet];
+
 	UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard]; 
 	NSString *pbStr = [pasteBoard string];
 
@@ -32,62 +45,88 @@ bool activateShortcut(NSString *itemType, NSString* bundleID) {
 		return false;
 	
 	pbStr = [pbStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSString * urlScheme;
-	BOOL needToEscapeURL = NO;
-	BOOL needToRemoveSchema = NO;
-
-	if ([bundleID isEqualToString:@"org.mozilla.ios.Firefox"]) {
-		urlScheme = @"firefox://open-url?url=";
-		needToEscapeURL = YES;
-	} else if ([bundleID isEqualToString:@"org.mozilla.ios.Focus"]) {
-		urlScheme = @"firefox-focus://open-url?url=";
-		needToEscapeURL = YES;
-	} else if ([bundleID isEqualToString:@"com.google.chrome.ios"]) {
-		if ([pbStr hasPrefix:@"https://"])
-			urlScheme = @"googlechromes://";
-		else
-			urlScheme = @"googlechrome://";
-		needToRemoveSchema = YES;
-	} else if ([bundleID isEqualToString:@"com.brave.ios.browser"]) {
-		urlScheme = @"brave://open-url?url=";
-		needToEscapeURL = YES;
-	} else if ([bundleID isEqualToString:@"com.microsoft.msedge"]) {
-		urlScheme = @"microsoft-edge-";
-	} else {
-		urlScheme = @"";
-	}
-
-	NSCharacterSet *customCharacterset = [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]\\<>^`{|} "] invertedSet];
 	NSURL *finalURL = [NSURL URLWithString:pbStr];
 
-	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:pbStr]]) {
+	if (isBrowser(bundleID)) {
 
-		if (needToRemoveSchema) {
-			pbStr = [pbStr stringByReplacingOccurrencesOfString:@"http://" withString:@""];
-			pbStr = [pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""];
-		}
+		NSString *urlScheme;
+		BOOL needToEscapeURL = NO;
+		BOOL needToRemoveSchema = NO;
 
-		if (needToEscapeURL) pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
-
-		finalURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", urlScheme, pbStr]];
-
-	} else { // item is not an url
-
-		// search
-
-		if (needToEscapeURL) {
-			pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
-			pbStr = [pbStr stringByReplacingOccurrencesOfString:@"%" withString:@"%25"]; // second level escape is needed for the query
-			pbStr = [NSString stringWithFormat:@"%@https://www.google.com/search%%3Fq%%3D%@", urlScheme, pbStr];
+		if ([bundleID isEqualToString:@"org.mozilla.ios.Firefox"]) {
+			urlScheme = @"firefox://open-url?url=";
+			needToEscapeURL = YES;
+		} else if ([bundleID isEqualToString:@"org.mozilla.ios.Focus"]) {
+			urlScheme = @"firefox-focus://open-url?url=";
+			needToEscapeURL = YES;
+		} else if ([bundleID isEqualToString:@"com.google.chrome.ios"]) {
+			if ([pbStr hasPrefix:@"https://"])
+				urlScheme = @"googlechromes://";
+			else
+				urlScheme = @"googlechrome://";
+			needToRemoveSchema = YES;
+		} else if ([bundleID isEqualToString:@"com.brave.ios.browser"]) {
+			urlScheme = @"brave://open-url?url=";
+			needToEscapeURL = YES;
+		} else if ([bundleID isEqualToString:@"com.microsoft.msedge"]) {
+			urlScheme = @"microsoft-edge-";
+		} else if ([bundleID isEqualToString:@"com.alohabrowser.alohabrowser"]) {
+			urlScheme = @"alohabrowser://open?link=";
+			needToEscapeURL = YES;
+		} else if ([bundleID isEqualToString:@"com.opera.OperaTouch"]) {
+			urlScheme = @"touch-";
+		} else if ([bundleID isEqualToString:@"com.cloudmosa.puffin"]) {
+			if ([pbStr hasPrefix:@"https://"])
+				urlScheme = @"puffins://";
+			else
+				urlScheme = @"puffin://";
+			needToRemoveSchema = YES;
+		} else if ([bundleID isEqualToString:@"com.uc.iphone.browser.international"]) {
+			urlScheme = @"ucbrowser://";
+		} else if ([bundleID isEqualToString:@"ru.yandex.mobile.search"]) {
+			urlScheme = @"yandexbrowser-open-url://";
+			needToEscapeURL = YES;
+		} else if ([bundleID isEqualToString:@"RAPS.appstore.com.dolphin.browser.iphone.ios12"]) {
+			urlScheme = @"dolphin://";
+			needToRemoveSchema = YES;
 		} else {
-			pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
-			pbStr = [NSString stringWithFormat:@"%@%@www.google.com/search?q=%@", urlScheme, needToRemoveSchema?@"":@"https://", pbStr];
+			urlScheme = @"";
 		}
 
-		finalURL = [NSURL URLWithString: pbStr];
+		if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:pbStr]]) {
 
+			if (needToRemoveSchema) {
+				pbStr = [pbStr stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+				pbStr = [pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""];
+			}
+
+			if (needToEscapeURL) pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
+
+			pbStr = [NSString stringWithFormat:@"%@%@", urlScheme, pbStr];
+
+		} else { // item is not an url
+
+			// search
+
+			if (needToEscapeURL) {
+				pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
+				pbStr = [pbStr stringByReplacingOccurrencesOfString:@"%" withString:@"%25"]; // second level escape is needed for the query
+				pbStr = [NSString stringWithFormat:@"%@https://www.google.com/search%%3Fq%%3D%@", urlScheme, pbStr];
+			} else {
+				pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
+				pbStr = [NSString stringWithFormat:@"%@%@www.google.com/search?q=%@", urlScheme, needToRemoveSchema?@"":@"https://", pbStr];
+			}
+
+		}
+
+	} else {
+		if ([bundleID isEqualToString:@"com.google.ios.youtube"]) {
+			pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
+			pbStr = [NSString stringWithFormat:@"youtube://www.youtube.com/results?search_query=%@", pbStr];
+		}
 	}
 	
+	finalURL = [NSURL URLWithString: pbStr];
 	HBLogDebug(@"Final URL to open: %@", finalURL);
 	[[UIApplication sharedApplication] openURL:finalURL options:@{} completionHandler:nil];
 
@@ -100,7 +139,7 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 	if (!orig) orig = @[];
 	NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Application Support/PasteAndGo2.bundle"];
 	
-	if (isBrowser(bundleID)) {
+	if (isBrowser(bundleID) || isAnotherHandledApp(bundleID)) {
 		
 		UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard]; 
 		NSString *pbStr = [pasteBoard string];
@@ -109,11 +148,11 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 			
 			NSURL *url = [NSURL URLWithString:[pbStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 			
-			if ([[UIApplication sharedApplication] canOpenURL:url]) { // Item copied is an URL
+			if ([[UIApplication sharedApplication] canOpenURL:url] && isBrowser(bundleID)) { // Item copied is an URL
 				
 				SBSApplicationShortcutItem* pasteAndGoItem = [[%c(SBSApplicationShortcutItem) alloc] init];
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDGO" value:@"" table:nil];
-				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"Go to: %@", [[[pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""] stringByReplacingOccurrencesOfString:@"http://" withString:@""] mutableCopy]]; // link without http:// and https://
+				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"%@", [[[pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""] stringByReplacingOccurrencesOfString:@"http://" withString:@""] mutableCopy]]; // link without http:// and https://
 
 				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
 
@@ -123,7 +162,7 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 
 				SBSApplicationShortcutItem* pasteAndGoItem = [[%c(SBSApplicationShortcutItem) alloc] init];
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDSEARCH" value:@"" table:nil];
-				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"Search \"%@\"", pbStr];
+				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"\"%@\"", pbStr];
 
 				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
 
@@ -155,8 +194,8 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 }
 
 +(void) activateShortcut:(SBSApplicationShortcutItem*)item withBundleIdentifier:(NSString*)bundleID forIconView:(id)iconView {
-	activateShortcut([item type], bundleID);
-	%orig;
+	if (!activateShortcut([item type], bundleID))
+		%orig;
 }
 
 %end
@@ -184,8 +223,8 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 %hook SBUIAppIconForceTouchController
 
 -(void) appIconForceTouchShortcutViewController:(id)arg1 activateApplicationShortcutItem:(SBSApplicationShortcutItem*)item {
-	activateShortcut([item type], [item bundleIdentifierToLaunch]);
-	%orig;
+	if (!activateShortcut([item type], [item bundleIdentifierToLaunch]))
+		%orig;
 }
 
 %end

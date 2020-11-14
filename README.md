@@ -1,13 +1,13 @@
 # PasteAndGo 2 | Paste & Search actions for the force touch menu
-PasteAndGo 2 is a tweak for jailbroken iOS devices running iOS 11.3.1 to 13.3, that adds the ability to directly open a link or search a word
+PasteAndGo 2 is a tweak for jailbroken iOS devices running iOS 11 to 13, that adds the ability to directly open a link or search a word
 from the force touch menu of several browsers.
 
-It is based on [u/apieceoflint's](https://reddit.com/u/apieceoflint)'s' PasteAndGo tweak, and aims to add some cool features to the it, such as:
+It is based on [u/iAlex11's](https://reddit.com/u/iAlex11)'s' PasteAndGo2 tweak,
+which is based on [u/apieceoflint's](https://reddit.com/u/apieceoflint)'s' PasteAndGo tweak, and aims to add some cool features to the it, such as:
 - Support for more web browsers, such as Firefox, Brave, Google Chrome, and more!
-
-- Support for more languages such as Spanish, Dutch, German, French, Italian, Portuguese, Russian, Dutch, and more that I will be adding!
-
-- If the item copied is not a URL but just a normal word, search it with the search engine of preference.
+- Support for more languages such as Spanish, Dutch, German, French, Italian, Portuguese, Russian, Dutch, and more
+- If the item copied is not a URL but just a normal word, search it with the search engine of preference
+- Support for other non-browser apps
 
 ### List of compatible browsers
  - Safari
@@ -16,20 +16,26 @@ It is based on [u/apieceoflint's](https://reddit.com/u/apieceoflint)'s' PasteAnd
  - Firefox
  - Firefox Focus
  - Brave
+ - Opera Touch
+ - Yandex
+ - UC Browser
+ - Puffin
+ - Aloha
+ - Dolphin
 
 ## Installation
 Installing PasteAndGo 2 is a pretty straight-forward process. You can install it from:
 
-###### Twickd
-1. Add the [Twickd](https://repo.twickd.com) repository to your APT GUI.
-2. Search for PasteAndGo 2.
-3. Click install
+###### Repo
+1. Add the [https://repo.p0358.net](https://repo.p0358.net) repository in your package manager.
+2. Search for PasteAndGo2
+3. Install
 4. Enjoy!
 
 ###### Pre-compiled binaries
-If you prefer to do things manually, you can install PasteAndGo 2 manually using `dpkg`.
+If you prefer to do things manually, you can install PasteAndGo2 manually using `dpkg`.
 
-1. Download the latest release from [GitHub releases](https://github.com/iAlex11/PasteAndGo2/releases).
+1. Download the latest release from [GitHub releases](https://github.com/p0358/PasteAndGo2/releases).
 2. Either using filza or ssh, install the .deb package.
 	* If using Filza, you can just click on the file and select `install`.
 	* If using ssh, run `dpkg -i [path-to-deb-file]`
