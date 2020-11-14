@@ -26,6 +26,18 @@ bool isBrowser(NSString *bundleID) {
 	return false;
 }
 
+bool isPackageManager(NSString *bundleID) {
+	if ([bundleID isEqualToString:@"com.saurik.Cydia"]
+		|| [bundleID isEqualToString:@"xyz.willy.Zebra"]
+		|| [bundleID isEqualToString:@"org.coolstar.SileoStore"]
+		|| [bundleID isEqualToString:@"me.apptapp.installer"]
+	) {
+		return true;
+	}
+
+	return false;
+}
+
 bool isAnotherHandledApp(NSString *bundleID) {
 	return [bundleID isEqualToString:@"com.google.ios.youtube"];
 }
@@ -45,7 +57,6 @@ bool activateShortcut(NSString *itemType, NSString* bundleID) {
 		return false;
 	
 	pbStr = [pbStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSURL *finalURL = [NSURL URLWithString:pbStr];
 
 	if (isBrowser(bundleID)) {
 
@@ -119,6 +130,14 @@ bool activateShortcut(NSString *itemType, NSString* bundleID) {
 
 		}
 
+	} else if (isPackageManager(bundleID)) {
+		NSString *prefix;
+		if ([bundleID isEqualToString:@"com.saurik.Cydia"]) prefix = @"cydia://url/https://cydia.saurik.com/api/share#?source=";
+		if ([bundleID isEqualToString:@"xyz.willy.Zebra"]) prefix = @"zbra://sources/add/";
+		if ([bundleID isEqualToString:@"org.coolstar.SileoStore"]) prefix = @"sileo://source/";
+		if ([bundleID isEqualToString:@"me.apptapp.installer"]) prefix = @"installer://add/";
+		
+		pbStr = [NSString stringWithFormat:@"%@%@", prefix, pbStr];
 	} else {
 		if ([bundleID isEqualToString:@"com.google.ios.youtube"]) {
 			pbStr = [pbStr stringByAddingPercentEncodingWithAllowedCharacters:customCharacterset];
@@ -126,7 +145,7 @@ bool activateShortcut(NSString *itemType, NSString* bundleID) {
 		}
 	}
 	
-	finalURL = [NSURL URLWithString: pbStr];
+	NSURL *finalURL = [NSURL URLWithString:pbStr];
 	HBLogDebug(@"Final URL to open: %@", finalURL);
 	[[UIApplication sharedApplication] openURL:finalURL options:@{} completionHandler:nil];
 
@@ -139,7 +158,7 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 	if (!orig) orig = @[];
 	NSBundle *tweakBundle = [NSBundle bundleWithPath:@"/Library/Application Support/PasteAndGo2.bundle"];
 	
-	if (isBrowser(bundleID) || isAnotherHandledApp(bundleID)) {
+	if (isBrowser(bundleID) || isPackageManager(bundleID) || isAnotherHandledApp(bundleID)) {
 		
 		UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard]; 
 		NSString *pbStr = [pasteBoard string];
@@ -148,17 +167,23 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 			
 			NSURL *url = [NSURL URLWithString:[pbStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 			
-			if ([[UIApplication sharedApplication] canOpenURL:url] && isBrowser(bundleID)) { // Item copied is an URL
+			if ([[UIApplication sharedApplication] canOpenURL:url] && (isBrowser(bundleID) || isPackageManager(bundleID))) {
+				// Item copied is an URL
+				NSString *key;
+				if (isPackageManager(bundleID))
+					key = @"PASTEANDADDREPO";
+				else key = @"PASTEANDGO";
 				
 				SBSApplicationShortcutItem* pasteAndGoItem = [[%c(SBSApplicationShortcutItem) alloc] init];
-				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDGO" value:@"" table:nil];
+				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:key value:@"" table:nil];
 				pasteAndGoItem.localizedSubtitle = [NSString stringWithFormat: @"%@", [[[pbStr stringByReplacingOccurrencesOfString:@"https://" withString:@""] stringByReplacingOccurrencesOfString:@"http://" withString:@""] mutableCopy]]; // link without http:// and https://
 
 				pasteAndGoItem.type = @"com.twickd.amodrono.pasteandgo2.item";
 
 				return [orig arrayByAddingObject:pasteAndGoItem];
 
-			} else { // Item copied is not an URL
+			} else {
+				// Item copied is not an URL
 
 				SBSApplicationShortcutItem* pasteAndGoItem = [[%c(SBSApplicationShortcutItem) alloc] init];
 				pasteAndGoItem.localizedTitle = [tweakBundle localizedStringForKey:@"PASTEANDSEARCH" value:@"" table:nil];

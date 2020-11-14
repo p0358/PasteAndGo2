@@ -4,4 +4,7 @@
 
 	<key>PASTEANDSEARCH</key>
 	<string>Plakken en Zoeken</string>
+
+	<key>PASTEANDADDREPO</key>
+	<string>Plakken en repo toevoegen</string>
 </dict>

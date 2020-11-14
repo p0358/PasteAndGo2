@@ -4,4 +4,7 @@
 
 	<key>PASTEANDSEARCH</key>
 	<string>поиск и вставка</string>
+
+	<key>PASTEANDADDREPO</key>
+	<string>Вставить и добавить репо</string>
 </dict>

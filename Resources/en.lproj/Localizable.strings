@@ -4,4 +4,7 @@
 
 	<key>PASTEANDSEARCH</key>
 	<string>Paste and Search</string>
+
+	<key>PASTEANDADDREPO</key>
+	<string>Paste and add repo</string>
 </dict>

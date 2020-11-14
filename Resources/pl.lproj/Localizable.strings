@@ -4,4 +4,7 @@
 
 	<key>PASTEANDSEARCH</key>
 	<string>Wklej i wyszukaj</string>
+
+	<key>PASTEANDADDREPO</key>
+	<string>Wklej i dodaj repo</string>
 </dict>
