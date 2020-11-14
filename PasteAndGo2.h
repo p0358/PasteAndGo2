@@ -59,18 +59,16 @@
 @property (nonatomic,copy) NSDictionary* userInfo; 
 @property (assign,nonatomic) NSUInteger activationMode;
 @property (nonatomic,copy) NSString* bundleIdentifierToLaunch;
+-(NSString *)bundleIdentifierToLaunch;
 @end
 
 @interface SBIconView : NSObject
 - (NSString*)applicationBundleIdentifier;
 - (NSString*)applicationBundleIdentifierForShortcuts;
 
-//%new
-- (bool)isBrowser:(NSString *)bundleID;
 - (NSURL *)generateLink:(NSString *)url forApp:(NSString *)bundleID;
 @end
 
 @interface SBUIAppIconForceTouchControllerDataProvider : NSObject
 - (NSString*)applicationBundleIdentifier;
-- (bool)isBrowser:(NSString *)bundleID;
 @end
