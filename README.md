@@ -23,6 +23,15 @@ which is based on [u/apieceoflint's](https://reddit.com/u/apieceoflint)'s' Paste
  - Aloha
  - Dolphin
 
+### List of compatible package managers
+ - Cydia
+ - Zebra
+ - Installer 5
+ - Sileo
+
+### List of other compatible apps
+ - YouTube – for searching in the app
+
 ## Installation
 Installing PasteAndGo 2 is a pretty straight-forward process. You can install it from:
 

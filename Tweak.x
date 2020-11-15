@@ -182,7 +182,7 @@ NSArray *addApplicationShortcutItems(NSString *bundleID, NSArray *orig) {
 
 				return [orig arrayByAddingObject:pasteAndGoItem];
 
-			} else {
+			} else if (!isPackageManager(bundleID)) {
 				// Item copied is not an URL
 
 				SBSApplicationShortcutItem* pasteAndGoItem = [[%c(SBSApplicationShortcutItem) alloc] init];
